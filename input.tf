@@ -19,8 +19,8 @@ variable "eventgrid_settings" {
   type        = any
 }
 
-variable "eventgrid_system_topic_id" {
-  description = "The ID of the system topic the subscription is to join"
+variable "system_topic_name" {
+  description = "The name of the system topic the subscription is to join"
   type        = string
 }
 

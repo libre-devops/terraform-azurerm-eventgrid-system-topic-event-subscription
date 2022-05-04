@@ -1,6 +1,6 @@
 resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription" {
   name                = var.event_subscription_name
-  system_topic        = var.eventgrid_system_topic_id
+  system_topic        = var.system_topic_name
   resource_group_name = var.rg_name
 
   expiration_time_utc                  = var.expiration_time_utc
