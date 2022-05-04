@@ -7,6 +7,10 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
   event_delivery_schema                = var.event_delivery_schema
   advanced_filtering_on_arrays_enabled = var.advanced_filtering_on_arrays_enabled
   labels                               = var.labels
+  eventhub_endpoint_id                 = try(var.eventhub_endpoint_id, "")
+  hybrid_connection_endpoint_id        = try(var.hybrid_connection_endpoint_id, "")
+  service_bus_queue_endpoint_id        = try(var.service_bus_queue_endpoint_id, "")
+  service_bus_topic_endpoint_id        = try(var.service_bus_topic_endpoint_id, "")
 
   dynamic "azure_function_endpoint" {
     for_each = lookup(var.eventgrid_settings, "azure_function_endpoint", {}) != {} ? [1] : []
