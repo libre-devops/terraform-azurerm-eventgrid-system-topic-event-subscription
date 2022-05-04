@@ -16,7 +16,7 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
   dynamic "azure_function_endpoint" {
     for_each = lookup(var.eventgrid_settings, "azure_function_endpoint", {}) != {} ? [1] : []
     content {
-      function_id                       = lookup(var.eventgrid_settings.azure_private_endpoint, "function_id", "")
+      function_id                       = lookup(var.eventgrid_settings.azure_private_endpoint, "function_id", null)
       max_events_per_batch              = lookup(var.eventgrid_settings.azure_private_endpoint, "max_events_per_batch", null)
       preferred_batch_size_in_kilobytes = lookup(var.eventgrid_settings.azure_private_endpoint, "preferred_batch_size_in_kilobytes", null)
     }
@@ -25,7 +25,7 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
   dynamic "storage_queue_endpoint" {
     for_each = lookup(var.eventgrid_settings, "storage_queue_endpoint", {}) != {} ? [1] : []
     content {
-      storage_account_id                    = lookup(var.eventgrid_settings.storage_queue_endpoint, "storage_account_id", "")
+      storage_account_id                    = lookup(var.eventgrid_settings.storage_queue_endpoint, "storage_account_id", null)
       queue_name                            = lookup(var.eventgrid_settings.storage_queue_endpoint, "queue_name", null)
       queue_message_time_to_live_in_seconds = lookup(var.eventgrid_settings.storage_queue_endpoint, "queue_message_time_to_live_in_seconds", null)
     }
@@ -142,71 +142,68 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
           values = lookup(var.eventgrid_settings.advanced_filterstring_not_begins_with, "values", null)
         }
       }
-      #        dynamic "string_ends_with" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "string_ends_with", {}) != {} ? [
-      #            "string_ends_with"
-      #          ] : []
-      #          content {
-      #            key    = lookup(var.eventgrid_settings.advanced_filter, "string_ends_with.key", null)
-      #            values = lookup(var.eventgrid_settings.advanced_filter, "string_ends_with.values", null)
-      #          }
-      #        }
-      #        dynamic "string_not_ends_with" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "string_not_ends_with", {}) != {} ? [
-      #            "string_not_ends_with"
-      #          ] : []
-      #          content {
-      #            key    = lookup(var.eventgrid_settings.advanced_filter, "string_not_ends_with.key", null)
-      #            values = lookup(var.eventgrid_settings.advanced_filter, "string_not_ends_with.values", null)
-      #          }
-      #        }
-      #        dynamic "string_contains" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "string_contains", {}) != {} ? [
-      #            "string_contains"
-      #          ] : []
-      #          content {
-      #            key    = lookup(var.eventgrid_settings.advanced_filter, "string_contains.key", null)
-      #            values = lookup(var.eventgrid_settings.advanced_filter, "string_contains.values", null)
-      #          }
-      #        }
-      #        dynamic "string_not_contains" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "string_not_contains", {}) != {} ? [
-      #            "string_not_contains"
-      #          ] : []
-      #          content {
-      #            key    = lookup(var.eventgrid_settings.advanced_filter, "string_not_contains.key", null)
-      #            values = lookup(var.eventgrid_settings.advanced_filter, "string_not_contains.values", null)
-      #          }
-      #        }
-      #        dynamic "string_in" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "string_in", {}) != {} ? ["string_in"] : []
-      #          content {
-      #            key    = lookup(var.eventgrid_settings.advanced_filter, "string_in.key", null)
-      #            values = lookup(var.eventgrid_settings.advanced_filter, "string_in.values", null)
-      #          }
-      #        }
-      #        dynamic "string_not_in" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "string_not_in", {}) != {} ? ["string_not_in"] : []
-      #          content {
-      #            key    = lookup(var.eventgrid_settings.advanced_filter, "string_not_in.key", null)
-      #            values = lookup(var.eventgrid_settings.advanced_filter, "string_not_in.values", null)
-      #          }
-      #        }
-      #        dynamic "is_not_null" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "is_not_null", {}) != {} ? ["is_not_null"] : []
-      #          content {
-      #            key = lookup(var.eventgrid_settings.advanced_filter, "is_not_null.key", null)
-      #          }
-      #        }
-      #        dynamic "is_null_or_undefined" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "is_null_or_undefined", {}) != {} ? [
-      #            "is_null_or_undefined"
-      #          ] : []
-      #          content {
-      #            key = lookup(var.eventgrid_settings.advanced_filter, "is_null_or_undefined.key", null)
-      #          }
-      #        }
-      #      }
+
+      dynamic "string_ends_with" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "string_ends_with", {}) != {} ? [1] : []
+        content {
+          key    = lookup(var.eventgrid_settings.advanced_filter.string_ends_with, "key", null)
+          values = lookup(var.eventgrid_settings.advanced_filter.string_ends_with, "values", null)
+        }
+      }
+
+      dynamic "string_not_ends_with" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "string_not_ends_with", {}) != {} ? [1] : []
+        content {
+          key    = lookup(var.eventgrid_settings.advanced_filter.string_not_ends_with, "key", null)
+          values = lookup(var.eventgrid_settings.advanced_filter.string_not_ends_with, "values", null)
+        }
+      }
+
+      dynamic "string_contains" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "string_contains", {}) != {} ? [1] : []
+        content {
+          key    = lookup(var.eventgrid_settings.advanced_filter.string_contains, "key", null)
+          values = lookup(var.eventgrid_settings.advanced_filter.string_contains, "values", null)
+        }
+      }
+
+      dynamic "string_not_contains" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "string_not_contains", {}) != {} ? [1] : []
+        content {
+          key    = lookup(var.eventgrid_settings.advanced_filter.string_not_contains, "key", null)
+          values = lookup(var.eventgrid_settings.advanced_filter.string_not_contains, "values", null)
+        }
+      }
+
+      dynamic "string_in" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "string_in", {}) != {} ? [1] : []
+        content {
+          key    = lookup(var.eventgrid_settings.advanced_filter.string_in, "key", null)
+          values = lookup(var.eventgrid_settings.advanced_filter.string_in, "values", null)
+        }
+      }
+
+      dynamic "string_not_in" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "string_not_in", {}) != {} ? [1] : []
+        content {
+          key    = lookup(var.eventgrid_settings.advanced_filter.string_not_in, "key", null)
+          values = lookup(var.eventgrid_settings.advanced_filter.string_not_in, "values", null)
+        }
+      }
+
+      dynamic "is_not_null" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "is_not_null", {}) != {} ? [1] : []
+        content {
+          key = lookup(var.eventgrid_settings.advanced_filter.is_not_null, "key", null)
+        }
+      }
+
+      dynamic "is_null_or_undefined" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "is_null_or_undefined", {}) != {} ? [1] : []
+        content {
+          key = lookup(var.eventgrid_settings.advanced_filter.is_null_or_undefined, "key", null)
+        }
+      }
     }
   }
 }
