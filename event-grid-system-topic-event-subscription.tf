@@ -75,77 +75,73 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
       dynamic "bool_equals" {
         for_each = lookup(var.eventgrid_settings.advanced_filter, "bool_equals", {}) != {} ? [1] : []
         content {
-          key   = lookup(var.eventgrid_settings.advanced_filter.bool_equals, "bool_equals.key", null)
-          value = lookup(var.eventgrid_settings.advanced_filter.bool_equals, "bool_equals.value", null)
+          key   = lookup(var.eventgrid_settings.advanced_filter.bool_equals, "key", null)
+          value = lookup(var.eventgrid_settings.advanced_filter.bool_equals, "value", null)
         }
       }
 
       dynamic "number_greater_than" {
         for_each = lookup(var.eventgrid_settings.advanced_filter, "number_greater_than", {}) != {} ? [1] : []
         content {
-          key   = lookup(var.eventgrid_settings.advanced_filter, "number_greater_than.key", null)
-          value = lookup(var.eventgrid_settings.advanced_filter, "number_greater_than.value", null)
+          key   = lookup(var.eventgrid_settings.advanced_filter.number_greater_than, "key", null)
+          value = lookup(var.eventgrid_settings.advanced_filter.number_greater_than, "value", null)
         }
       }
-      #        dynamic "number_greater_than_or_equals" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "number_greater_than_or_equals", {}) != {} ? [
-      #            "number_greater_than_or_equals"
-      #          ] : []
-      #          content {
-      #            key   = lookup(var.eventgrid_settings.advanced_filter, "number_greater_than_or_equals.key", null)
-      #            value = lookup(var.eventgrid_settings.advanced_filter, "number_greater_than_or_equals.value", null)
-      #          }
-      #        }
-      #        dynamic "number_less_than" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "number_less_than", {}) != {} ? [
-      #            "number_less_than"
-      #          ] : []
-      #          content {
-      #            key   = lookup(var.eventgrid_settings.advanced_filter, "number_less_than.key", null)
-      #            value = lookup(var.eventgrid_settings.advanced_filter, "number_less_than.value", null)
-      #          }
-      #        }
-      #        dynamic "number_less_than_or_equals" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "number_less_than_or_equals", {}) != {} ? [
-      #            "number_less_than_or_equals"
-      #          ] : []
-      #          content {
-      #            key   = lookup(var.eventgrid_settings.advanced_filter, "number_less_than_or_equals.key", null)
-      #            value = lookup(var.eventgrid_settings.advanced_filter, "number_less_than_or_equals.value", null)
-      #          }
-      #        }
-      #        dynamic "number_in" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "number_in", {}) != {} ? ["number_in"] : []
-      #          content {
-      #            key    = lookup(var.eventgrid_settings.advanced_filter, "number_in.key", null)
-      #            values = lookup(var.eventgrid_settings.advanced_filter, "number_in.values", null)
-      #          }
-      #        }
-      #        dynamic "number_not_in" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "number_not_in", {}) != {} ? ["number_not_in"] : []
-      #          content {
-      #            key    = lookup(var.eventgrid_settings.advanced_filter, "number_not_in.key", null)
-      #            values = lookup(var.eventgrid_settings.advanced_filter, "number_not_in.values", null)
-      #          }
-      #        }
-      #        dynamic "string_begins_with" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "string_begins_with", {}) != {} ? [
-      #            "string_begins_with"
-      #          ] : []
-      #          content {
-      #            key    = lookup(var.eventgrid_settings.advanced_filter, "string_begins_with.key", null)
-      #            values = lookup(var.eventgrid_settings.advanced_filter, "string_begins_with.values", null)
-      #          }
-      #        }
-      #        dynamic "string_not_begins_with" {
-      #          for_each = lookup(var.eventgrid_settings.advanced_filter, "string_not_begins_with", {}) != {} ? [
-      #            "string_not_begins_with"
-      #          ] : []
-      #          content {
-      #            key    = lookup(var.eventgrid_settings.advanced_filter, "string_not_begins_with.key", null)
-      #            values = lookup(var.eventgrid_settings.advanced_filter, "string_not_begins_with.values", null)
-      #          }
-      #        }
+
+      dynamic "number_greater_than_or_equals" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "number_greater_than_or_equals", {}) != {} ? [1] : []
+        content {
+          key   = lookup(var.eventgrid_settings.advanced_filter.number_greater_than_or_equals, "key", null)
+          value = lookup(var.eventgrid_settings.advanced_filter.number_greater_than_or_equals, "value", null)
+        }
+      }
+
+      dynamic "number_less_than" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "number_less_than", {}) != {} ? [1] : []
+        content {
+          key   = lookup(var.eventgrid_settings.advanced_filter.number_less_than, "key", null)
+          value = lookup(var.eventgrid_settings.advanced_filter.number_less_than, "value", null)
+        }
+      }
+
+      dynamic "number_less_than_or_equals" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "number_less_than_or_equals", {}) != {} ? [1] : []
+        content {
+          key   = lookup(var.eventgrid_settings.advanced_filter.number_less_than_or_equals, "key", null)
+          value = lookup(var.eventgrid_settings.advanced_filter.number_less_than_or_equals, "value", null)
+        }
+      }
+
+      dynamic "number_in" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "number_in", {}) != {} ? [1] : []
+        content {
+          key    = lookup(var.eventgrid_settings.advanced_filter.number_in, "key", null)
+          values = lookup(var.eventgrid_settings.advanced_filter.number_in, "values", null)
+        }
+      }
+      dynamic "number_not_in" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "number_not_in", {}) != {} ? [1] : []
+        content {
+          key    = lookup(var.eventgrid_settings.advanced_filter.number_not_in, "key", null)
+          values = lookup(var.eventgrid_settings.advanced_filter.number_not_in, "values", null)
+        }
+      }
+
+      dynamic "string_begins_with" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "string_begins_with", {}) != {} ? [1] : []
+        content {
+          key    = lookup(var.eventgrid_settings.advanced_filter.string_begins_with, "key", null)
+          values = lookup(var.eventgrid_settings.advanced_filter.string_begins_with, "values", null)
+        }
+      }
+
+      dynamic "string_not_begins_with" {
+        for_each = lookup(var.eventgrid_settings.advanced_filter, "string_not_begins_with", {}) != {} ? [1] : []
+        content {
+          key    = lookup(var.eventgrid_settings.advanced_filter.string_not_begins_with, "key", null)
+          values = lookup(var.eventgrid_settings.advanced_filterstring_not_begins_with, "values", null)
+        }
+      }
       #        dynamic "string_ends_with" {
       #          for_each = lookup(var.eventgrid_settings.advanced_filter, "string_ends_with", {}) != {} ? [
       #            "string_ends_with"
