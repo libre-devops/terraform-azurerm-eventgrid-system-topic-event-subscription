@@ -1,3 +1,9 @@
+variable "advanced_filtering_on_arrays_enabled" {
+  description = "Whether advanced filtered should be evaluated against an array instead of a single value"
+  type        = bool
+  default     = false
+}
+
 variable "event_delivery_schema" {
   description = "The scheme for the event delivery service"
   type        = string
