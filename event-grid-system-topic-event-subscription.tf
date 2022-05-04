@@ -6,6 +6,7 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
   expiration_time_utc                  = var.expiration_time_utc
   event_delivery_schema                = var.event_delivery_schema
   advanced_filtering_on_arrays_enabled = var.advanced_filtering_on_arrays_enabled
+  labels                               = [var.labels]
 
   dynamic "azure_function_endpoint" {
     for_each = lookup(var.eventgrid_settings, "azure_function_endpoint", {}) != {} ? [1] : []
