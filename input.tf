@@ -19,11 +19,6 @@ variable "eventgrid_settings" {
   type        = any
 }
 
-variable "system_topic_name" {
-  description = "The name of the system topic the subscription is to join"
-  type        = string
-}
-
 variable "eventhub_endpoint_id" {
   description = "The ID of an eventhub endpoint if used"
   type        = string
@@ -90,6 +85,11 @@ variable "service_bus_topic_endpoint_id" {
   description = "The ID of an service bus topic endpoint if used"
   type        = string
   default     = null
+}
+
+variable "system_topic_name" {
+  description = "The name of the system topic the subscription is to join"
+  type        = string
 }
 
 variable "tags" {

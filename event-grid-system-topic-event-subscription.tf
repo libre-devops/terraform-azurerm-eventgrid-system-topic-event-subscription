@@ -39,6 +39,14 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
     }
   }
 
+  dynamic "dead_letter_identity" {
+    for_each = lookup(var.eventgrid_settings, "dead_letter_identity", {}) != {} ? [1] : []
+    content {
+      type                 = lookup(var.eventgrid_settings.dead_letter_identity, "type", null)
+      userAssignedIdentity = lookup(var.eventgrid_settings.dead_letter_identity, "userAssignedIdentity", null)
+    }
+  }
+
   dynamic "retry_policy" {
     for_each = lookup(var.eventgrid_settings, "retry_policy", {}) != {} ? [1] : []
     content {
@@ -65,6 +73,25 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
       subject_begins_with = lookup(var.eventgrid_settings.subject_filter, "subject_begins_with", null)
       subject_ends_with   = lookup(var.eventgrid_settings.subject_filter, "subject_ends_with", null)
       case_sensitive      = lookup(var.eventgrid_settings.subject_filter, "case_sensitive", null)
+    }
+  }
+
+  dynamic "delivery_identity" {
+    for_each = lookup(var.eventgrid_settings, "delivery_identity", {}) != {} ? [1] : []
+    content {
+      type                 = lookup(var.eventgrid_settings.delivery_identity, "type", null)
+      userAssignedIdentity = lookup(var.eventgrid_settings.delivery_identity, "userAssignedIdentity", null)
+    }
+  }
+
+  dynamic "delivery_property" {
+    for_each = lookup(var.eventgrid_settings, "delivery_property", {}) != {} ? [1] : []
+    content {
+      header_name  = lookup(var.eventgrid_settings.delivery_property, "header_name", null)
+      type         = lookup(var.eventgrid_settings.delivery_property, "type", null)
+      value        = lookup(var.eventgrid_settings.delivery_property, "value", null)
+      source_field = lookup(var.eventgrid_settings.delivery_property, "source_field", null)
+      secret       = lookup(var.eventgrid_settings.delivery_property, "secret", null)
     }
   }
 
