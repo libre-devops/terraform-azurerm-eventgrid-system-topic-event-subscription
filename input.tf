@@ -27,7 +27,7 @@ variable "eventgrid_system_topic_id" {
 variable "eventhub_endpoint_id" {
   description = "The ID of an eventhub endpoint if used"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "expiration_time_utc" {
@@ -39,7 +39,7 @@ variable "expiration_time_utc" {
 variable "hybrid_connection_endpoint_id" {
   description = "The ID of an hybrid_connection endpoint if used"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "identity_ids" {
@@ -83,13 +83,13 @@ variable "rg_name" {
 variable "service_bus_queue_endpoint_id" {
   description = "The ID of an service bus queue endpoint if used"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "service_bus_topic_endpoint_id" {
   description = "The ID of an service bus topic endpoint if used"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "tags" {
