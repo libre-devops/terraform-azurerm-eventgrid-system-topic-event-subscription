@@ -61,7 +61,7 @@ variable "included_event_types" {
 }
 
 variable "labels" {
-  type        = list(any)
+  type        = list(string)
   description = "The Labels of the event grid"
   default     = []
 }
