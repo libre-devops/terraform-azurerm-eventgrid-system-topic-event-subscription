@@ -42,8 +42,7 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
   dynamic "dead_letter_identity" {
     for_each = lookup(var.eventgrid_settings, "dead_letter_identity", {}) != {} ? [1] : []
     content {
-      type                 = lookup(var.eventgrid_settings.dead_letter_identity, "type", null)
-      userAssignedIdentity = lookup(var.eventgrid_settings.dead_letter_identity, "userAssignedIdentity", null)
+      type = lookup(var.eventgrid_settings.dead_letter_identity, "type", null)
     }
   }
 
@@ -79,8 +78,7 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
   dynamic "delivery_identity" {
     for_each = lookup(var.eventgrid_settings, "delivery_identity", {}) != {} ? [1] : []
     content {
-      type                 = lookup(var.eventgrid_settings.delivery_identity, "type", null)
-      userAssignedIdentity = lookup(var.eventgrid_settings.delivery_identity, "userAssignedIdentity", null)
+      type = lookup(var.eventgrid_settings.delivery_identity, "type", null)
     }
   }
 
