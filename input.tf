@@ -33,7 +33,7 @@ variable "eventhub_endpoint_id" {
 variable "expiration_time_utc" {
   description = "The expiration time in RFC 3339 format"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "hybrid_connection_endpoint_id" {
