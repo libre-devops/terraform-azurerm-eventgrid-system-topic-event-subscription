@@ -26,6 +26,22 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
     }
   }
 
+  dynamic "storage_blob_dead_letter_destination" {
+    for_each = lookup(var.eventgrid_settings, "storage_blob_dead_letter_destination", {}) != {} ? [1] : []
+    content {
+      storage_account_id          = lookup(var.eventgrid_settings.storage_blob_dead_letter_destination, "storage_account_id", null)
+      storage_blob_container_name = lookup(var.eventgrid_settings.storage_blob_dead_letter_destination, "storage_blob_container_name", null)
+    }
+  }
+
+  dynamic "retry_policy" {
+    for_each = lookup(var.eventgrid_settings, "retry_policy", {}) != {} ? [1] : []
+    content {
+      max_delivery_attempts = lookup(var.eventgrid_settings.retry_policy, "max_delivery_attempts", null)
+      event_time_to_live    = lookup(var.eventgrid_settings.retry_policy, "event_time_to_live", null)
+    }
+  }
+
   #
   #  dynamic "webhook_endpoint" {
   #    for_each = lookup(var.eventgrid_settings, "webhook_endpoint", {}) != {} ? [1] : []
@@ -199,21 +215,6 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
   #      }
   #    }
   #
-  #    dynamic "storage_blob_dead_letter_destination" {
-  #      for_each = lookup(var.eventgrid_settings, "storage_blob_dead_letter_destination", {}) != {} ? [1] : []
-  #      content {
-  #        storage_account_id          = lookup(var.eventgrid_settings.storage_blob_dead_letter_destination, "storage_account_id", null)
-  #        storage_blob_container_name = lookup(var.eventgrid_settings.storage_blob_dead_letter_destination, "storage_blob_container_name", null)
-  #      }
-  #    }
-  #
-  #    dynamic "retry_policy" {
-  #      for_each = lookup(var.eventgrid_settings, "retry_policy", {}) != {} ? [1] : []
-  #      content {
-  #        max_delivery_attempts = lookup(var.eventgrid_settings.retry_policy, "max_delivery_attempts", null)
-  #        event_time_to_live    = lookup(var.eventgrid_settings.retry_policy, "event_time_to_live", null)
-  #      }
-  #    }
 
 }
 
