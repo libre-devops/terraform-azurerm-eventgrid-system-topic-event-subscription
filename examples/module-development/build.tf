@@ -43,6 +43,11 @@ module "sa" {
   ]
 }
 
+resource "azurerm_storage_queue" "queue" {
+  name                 = "queue1"
+  storage_account_name = module.sa.storage_account_names["sa${var.short}${var.loc}${var.env}01"]
+}
+
 module "eventgrid_system_topic" {
   source = "registry.terraform.io/libre-devops/eventgrid-system-topic/azurerm"
 
@@ -63,22 +68,16 @@ module "eventgrid_system_topic_event_subscription" {
 
   eventgrid_system_event_subscriptions = [
     {
-      name                                 = "eg-sub-${var.short}-${var.loc}-${var.env}-${random_string.entropy.result}"
+      name                                 = "egsub-${var.short}-${var.loc}-${var.env}-${random_string.entropy.result}"
       system_topic_name                    = module.eventgrid_system_topic.eventgrid_name
       rg_name                              = module.rg.rg_name
       expiration_time_utc                  = timeadd(local.now, "720h") # Example: 30 days from now
       event_delivery_schema                = "EventGridSchema"
       advanced_filtering_on_arrays_enabled = true
 
-      azure_function_endpoint = {
-        function_id                       = "function-app-id/functions/function-name"
-        max_events_per_batch              = 100
-        preferred_batch_size_in_kilobytes = 64
-      }
-
       storage_queue_endpoint = {
         storage_account_id                    = module.sa.storage_account_ids["sa${var.short}${var.loc}${var.env}01"]
-        queue_name                            = "eventqueue"
+        queue_name                            = azurerm_storage_queue.queue.name
         queue_message_time_to_live_in_seconds = 86400 # 1 day
       }
 

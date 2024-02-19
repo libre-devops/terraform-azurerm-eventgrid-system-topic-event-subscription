@@ -4,7 +4,7 @@ variable "eventgrid_system_event_subscriptions" {
     name                                 = string
     system_topic_name                    = string
     rg_name                              = string
-    expiration_time_utc                  = optional(number)
+    expiration_time_utc                  = optional(string)
     event_delivery_schema                = optional(string)
     advanced_filtering_on_arrays_enabled = optional(bool)
     labels                               = optional(list(string))
@@ -17,20 +17,20 @@ variable "eventgrid_system_event_subscriptions" {
     storage_queue_endpoint = optional(object({
       storage_account_id                    = string
       queue_name                            = string
-      queue_message_time_to_live_in_seconds = optional(number)
+      queue_message_time_to_live_in_seconds = optional(string)
     }))
 
     azure_function_endpoint = optional(object({
       function_id                       = string
-      max_events_per_batch              = optional(number)
-      preferred_batch_size_in_kilobytes = optional(number)
+      max_events_per_batch              = optional(string)
+      preferred_batch_size_in_kilobytes = optional(string)
     }))
 
     webhook_endpoint = optional(object({
       url                               = string
       base_url                          = optional(string)
-      max_events_per_batch              = optional(number)
-      preferred_batch_size_in_kilobytes = optional(number)
+      max_events_per_batch              = optional(string)
+      preferred_batch_size_in_kilobytes = optional(string)
       active_directory_tenant_id        = optional(string)
       active_directory_app_id_or_uri    = optional(string)
     }))
@@ -63,40 +63,40 @@ variable "eventgrid_system_event_subscriptions" {
       })))
       number_greater_than = optional(list(object({
         key   = string
-        value = number
+        value = string
       })))
       number_greater_than_or_equals = optional(list(object({
         key   = string
-        value = number
+        value = string
       })))
       number_less_than = optional(list(object({
         key   = string
-        value = number
+        value = string
       })))
       number_less_than_or_equals = optional(list(object({
         key   = string
-        value = number
+        value = string
       })))
       number_in = optional(list(object({
         key    = string
-        values = list(number)
+        values = list(string)
       })))
       number_not_in = optional(list(object({
         key    = string
-        values = list(number)
+        values = list(string)
       })))
       number_in_range = optional(list(object({
         key = string
         values = list(object({
-          min = number
-          max = number
+          min = string
+          max = string
         }))
       })))
       number_not_in_range = optional(list(object({
         key = string
         values = list(object({
-          min = number
-          max = number
+          min = string
+          max = string
         }))
       })))
       string_begins_with = optional(list(object({
@@ -149,8 +149,8 @@ variable "eventgrid_system_event_subscriptions" {
     }))
 
     retry_policy = optional(object({
-      max_delivery_attempts = number
-      event_time_to_live    = number
+      max_delivery_attempts = string
+      event_time_to_live    = string
     }))
   }))
 }
