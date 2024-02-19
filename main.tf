@@ -1,4 +1,3 @@
-```hcl
 variable "eventgrid_system_event_subscriptions" {
   description = "The eventgrid system event subscriptions block"
   type = list(object({
@@ -393,37 +392,3 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
     }
   }
 }
-```
-## Requirements
-
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
-
-## Modules
-
-No modules.
-
-## Resources
-
-| Name | Type |
-|------|------|
-| [azurerm_eventgrid_system_topic_event_subscription.event_subscription](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventgrid_system_topic_event_subscription) | resource |
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_eventgrid_system_event_subscriptions"></a> [eventgrid\_system\_event\_subscriptions](#input\_eventgrid\_system\_event\_subscriptions) | The eventgrid system event subscriptions block | <pre>list(object({<br>    name                                 = string<br>    system_topic_name                    = string<br>    rg_name                              = string<br>    expiration_time_utc                  = optional(number)<br>    event_delivery_schema                = optional(string)<br>    advanced_filtering_on_arrays_enabled = optional(bool)<br>    labels                               = optional(list(string))<br>    eventhub_endpoint_id                 = optional(string)<br>    hybrid_connection_endpoint_id        = optional(string)<br>    service_bus_queue_endpoint_id        = optional(string)<br>    service_bus_topic_endpoint_id        = optional(string)<br>    included_event_types                 = optional(list(string))<br><br>    storage_queue_endpoint = optional(object({<br>      storage_account_id                    = string<br>      queue_name                            = string<br>      queue_message_time_to_live_in_seconds = optional(number)<br>    }))<br><br>    azure_function_endpoint = optional(object({<br>      function_id                       = string<br>      max_events_per_batch              = optional(number)<br>      preferred_batch_size_in_kilobytes = optional(number)<br>    }))<br><br>    webhook_endpoint = optional(object({<br>      url                               = string<br>      base_url                          = optional(string)<br>      max_events_per_batch              = optional(number)<br>      preferred_batch_size_in_kilobytes = optional(number)<br>      active_directory_tenant_id        = optional(string)<br>      active_directory_app_id_or_uri    = optional(string)<br>    }))<br><br>    subject_filter = optional(object({<br>      subject_begins_with = optional(string)<br>      subject_ends_with   = optional(string)<br>      case_sensitive      = optional(bool)<br>    }))<br><br><br>    delivery_identity = optional(object({<br>      type                   = string<br>      user_assigned_identity = optional(string)<br>    }))<br><br>    delivery_property = optional(object({<br>      header_name  = string<br>      type         = string // "Static" or "Dynamic"<br>      value        = optional(string)<br>      source_field = optional(string)<br>      secret       = optional(bool)<br><br>    }))<br><br>    advanced_filters = optional(object({<br>      bool_equals = optional(list(object({<br>        key   = string<br>        value = bool<br>      })))<br>      number_greater_than = optional(list(object({<br>        key   = string<br>        value = number<br>      })))<br>      number_greater_than_or_equals = optional(list(object({<br>        key   = string<br>        value = number<br>      })))<br>      number_less_than = optional(list(object({<br>        key   = string<br>        value = number<br>      })))<br>      number_less_than_or_equals = optional(list(object({<br>        key   = string<br>        value = number<br>      })))<br>      number_in = optional(list(object({<br>        key    = string<br>        values = list(number)<br>      })))<br>      number_not_in = optional(list(object({<br>        key    = string<br>        values = list(number)<br>      })))<br>      number_in_range = optional(list(object({<br>        key = string<br>        values = list(object({<br>          min = number<br>          max = number<br>        }))<br>      })))<br>      number_not_in_range = optional(list(object({<br>        key = string<br>        values = list(object({<br>          min = number<br>          max = number<br>        }))<br>      })))<br>      string_begins_with = optional(list(object({<br>        key    = string<br>        values = list(string)<br>      })))<br>      string_not_begins_with = optional(list(object({<br>        key    = string<br>        values = list(string)<br>      })))<br>      string_ends_with = optional(list(object({<br>        key    = string<br>        values = list(string)<br>      })))<br>      string_not_ends_with = optional(list(object({<br>        key    = string<br>        values = list(string)<br>      })))<br>      string_contains = optional(list(object({<br>        key    = string<br>        values = list(string)<br>      })))<br>      string_not_contains = optional(list(object({<br>        key    = string<br>        values = list(string)<br>      })))<br>      string_in = optional(list(object({<br>        key    = string<br>        values = list(string)<br>      })))<br>      string_not_in = optional(list(object({<br>        key    = string<br>        values = list(string)<br>      })))<br>      is_not_null = optional(list(object({<br>        key = string<br>      })))<br>      is_null_or_undefined = optional(list(object({<br>        key = string<br>      })))<br>    }))<br>    dead_letter_identity = optional(object({<br>      type                   = string<br>      user_assigned_identity = optional(string)<br>    }))<br><br>    storage_blob_dead_letter_destination = optional(object({<br>      storage_account_id          = string<br>      storage_blob_container_name = string<br>    }))<br><br>    retry_policy = optional(object({<br>      max_delivery_attempts = number<br>      event_time_to_live    = number<br>    }))<br>  }))</pre> | n/a | yes |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_eventgrid_system_topic_event_subscription_id"></a> [eventgrid\_system\_topic\_event\_subscription\_id](#output\_eventgrid\_system\_topic\_event\_subscription\_id) | The id of the custom subscription |
-| <a name="output_eventgrid_system_topic_event_subscription_labels"></a> [eventgrid\_system\_topic\_event\_subscription\_labels](#output\_eventgrid\_system\_topic\_event\_subscription\_labels) | The labels of the custom subscription |
-| <a name="output_eventgrid_system_topic_event_subscription_name"></a> [eventgrid\_system\_topic\_event\_subscription\_name](#output\_eventgrid\_system\_topic\_event\_subscription\_name) | The name of the custom subscription |
