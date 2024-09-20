@@ -81,7 +81,7 @@ resource "azurerm_eventgrid_system_topic_event_subscription" "event_subscription
     }
   }
   dynamic "advanced_filter" {
-    for_each = [each.value.advanced_filters]
+    for_each = each.value.advanced_filters != null ? [each.value.advanced_filters] : []
     content {
 
       dynamic "bool_equals" {
